@@ -14,7 +14,7 @@ of the employee."
 
 <?php
 
-$servername = "172.17.0.2";
+$servername = "172.17.0.2"; // Please modify this value with the corresponding servername
 $username = "user";
 $password = "password";
 $dbname = "employees";
