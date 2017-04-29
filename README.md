@@ -31,7 +31,7 @@ CONTAINER ID        IMAGE                          COMMAND                  CREA
 
 ### Downloading DB.
 The needed DBs are available at: https://github.com/datacharmer/test_db. 
-Start Downloading repository from any path on the host machine, we must to initialize the project directory. We must to create new directory where we are going to clone the project 
+Start Downloading repository from any path on the host machine, we must to initialize the project directory. We must to create new directory where we are going to clone the project:
 ```html
 $ mkdir testdb
 
@@ -118,14 +118,13 @@ Now that we are running a working mysql docker image container, we proceed to cr
 ### Building web application instance.
 Docker give us the chance to deploy a new container from a existing local or remote repository using a DockerFile (Uploaded into the present repository). 
 
-Note that the we also use default, start.sh and supervisord.conf files located in the same directory.
-Finally we can proceed with the build:
+Note that the we also use default, start.sh and supervisord.conf files located in the same directory. Just create a new directory and put all that files inside of it. Enter inside the directory and finally proceed with the build:
 ```html
 docker build -t nginx_php7-fpm_mysql-support .
 ```
 
 ### Link the webapp to the mysql-server container.
-In order to connect the webapp container to the mysql server, we can enter the following code:
+Fist, Be care to create /webroot and put inside at least the need (in this case) results.php script. In order to connect the webapp container to the mysql server, we can enter the following code:
 ```html
 docker run -d -v /webroot:/var/www/html -p 80:80 --link test-mysql:mysql/mysql-server \
 --name webapp nginx_php7-fpm_mysql-support
@@ -138,6 +137,8 @@ CONTAINER ID        IMAGE                          COMMAND                  CREA
 ```
 
 It just rests to test our application from a web browser at the local host and confirm that everything is working as expected by entering http://localhost/results.php.
+
+
 
 Note: 
 The required files are in the present repository.
