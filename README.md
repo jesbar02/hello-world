@@ -138,7 +138,8 @@ CONTAINER ID        IMAGE                          COMMAND                  CREA
 
 It just rests to test our application from a web browser at the local host and confirm that everything is working as expected by entering http://localhost/results.php.
 
-
+Link:
+https://github.com/jesbar02/simple-web-app/blob/master/employees%20db%20search%20result.png
 
 Note: 
 The required files are in the present repository.
