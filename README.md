@@ -10,6 +10,58 @@ In both cases, there are Supported tags and respective Dockerfile links.
 
 ### Downloading dockerized mysql-server.
 This procedure downloads the latest maintained version:
+
 ```html
 docker pull mysql/mysql-server:latest
+```
+
+### Initializing new instance mapping volumes on the host machine.
+This choice would give us the possibility to store the data generated inside the instance, in case of something goes wrong  with the container or we delete it accidentally, we can still have the data.
+
+```html
+docker run -d -v /testmysql:/var/lib/mysql -v /mysql-datadir/test_db:/test_db \
+-e MYSQL_ROOT_PASSWORD=mypassword --name test-mysql mysql/mysql-server
+```
+
+We can confirm the status of the running container with: docker ps 
+```html
+CONTAINER ID        IMAGE                          COMMAND                  CREATED             STATUS              PORTS                         NAMES
+8e6cbdbd52d3        mysql/mysql-server             "/entrypoint.sh my..."   12 hours ago        Up 12 hours         3306/tcp, 33060/tcp           test-mysql
+```
+
+### Downloading DB.
+The needed DBs are available at: https://github.com/datacharmer/test_db. 
+Start Downloading repository from any path on the host machine, we must to initialize the project directory. We must to create new directory where we are going to clone the project 
+```html
+$ mkdir testdb
+
+- Entering and initializing repository
+$ cd testdb/
+/testdb$ git init 
+Initialized empty Git repository in /home/jesushb/testdb/.git/
+
+- Cloning from github’s repo page
+~/testdb$ git clone https://github.com/datacharmer/test_db.git
+Cloning into 'test_db'...
+remote: Counting objects: 94, done.
+remote: Total 94 (delta 0), reused 0 (delta 0), pack-reused 94
+Unpacking objects: 100% (94/94), done.
+Checking connectivity... done.
+```
+
+After that we can move the hole directory to the mapped volume /mysql-datadir/test_db/ in order to recreate the database inside the container.
+```html
+- Making directory
+mkdir -p /mysql-datadir/test_db/
+
+- Getting inside directory
+cd /mysql-datadir/test_db/
+
+- Coping database dump to directory
+cp -R /mysql-datadir/test_db/ .
+
+Finally we have required files for the starting of the database inside container:
+Changelog                      employees.sql          load_dept_emp.dump      load_salaries1.dump  load_titles.dump  sakila            test_employees_md5.sql
+employees_partitioned_5.1.sql  images                 load_dept_manager.dump  load_salaries2.dump  objects.sql       show_elapsed.sql  test_employees_sha.sql
+employees_partitioned.sql      load_departments.dump  load_employees.dump     load_salaries3.dump  README.md         sql_test.sh
 ```
