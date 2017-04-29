@@ -6,4 +6,10 @@ For the present task, we are going to work with the following pre-build images r
 
 #### Mysql Server: [Official Repository](https://hub.docker.com/_/mysql/).
 #### Ubuntu 16.04: [Official Repository](https://hub.docker.com/_/ubuntu/).
-In both cases, there are Supported tags and respective Dockerfiles links. 
+In both cases, there are Supported tags and respective Dockerfile links. 
+
+### Downloading dockerized mysql-server.
+This procedure downloads the latest maintained version:
+```html
+docker pull mysql/mysql-server:latest
+```
