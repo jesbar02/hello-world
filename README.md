@@ -1,12 +1,12 @@
-# Simple-web-app 
+# Simple-web-app
 
-This project is about Deploying a simple app that outputs the list of employees that are Male which birth date is 1965-02-01 and the hire date is greater than 1990-01-01 ordered by the Full Name of the employee.
+This project is about Deploying a simple webapp that outputs the list of employees that are Male which birth date is 1965-02-01 and the hire date is greater than 1990-01-01 ordered by the Full Name of the employee.
 
 For the present task, we are going to work with the following pre-build images released for the corresponding contributor:
 
 #### Mysql Server: [Official Repository](https://hub.docker.com/_/mysql/).
 #### Ubuntu 16.04: [Official Repository](https://hub.docker.com/_/ubuntu/).
-In both cases, there are Supported tags and respective Dockerfile links. 
+In both cases, there are Supported tags and respective Dockerfile links.
 
 ### Downloading dockerized mysql-server.
 This procedure downloads the latest maintained version:
@@ -23,21 +23,21 @@ docker run -d -v /testmysql:/var/lib/mysql -v /mysql-datadir/test_db:/test_db \
 -e MYSQL_ROOT_PASSWORD=mypassword --name test-mysql mysql/mysql-server
 ```
 
-We can confirm the status of the running container with: docker ps 
+We can confirm the status of the running container with: docker ps
 ```html
 CONTAINER ID        IMAGE                          COMMAND                  CREATED             STATUS              PORTS                         NAMES
 8e6cbdbd52d3        mysql/mysql-server             "/entrypoint.sh my..."   12 hours ago        Up 12 hours         3306/tcp, 33060/tcp           test-mysql
 ```
 
 ### Downloading DB.
-The needed DBs are available at: https://github.com/datacharmer/test_db. 
+The needed DBs are available at: https://github.com/datacharmer/test_db.
 Start Downloading repository from any path on the host machine, we must to initialize the project directory. We must to create new directory where we are going to clone the project:
 ```html
 $ mkdir testdb
 
 - Entering and initializing repository
 $ cd testdb/
-/testdb$ git init 
+/testdb$ git init
 Initialized empty Git repository in /home/jesushb/testdb/.git/
 
 - Cloning from github’s repo page
@@ -72,7 +72,7 @@ docker exec -it test-mysql bash
 From inside the container, we must move to the working directory. Once there we can create employees database as follow:
 mysql < employees.sql
 
-### Accesing mysql CLI. 
+### Accesing mysql CLI.
 We can start a new CLI session either from inside the container or from the host machine:
 ```html
 docker exec -it test-mysql mysql -uroot -pmypassword
@@ -92,12 +92,12 @@ mysql> use employees;
 
 - Testing query:
 mysql> SELECT first_name,
-		       last_name 
-		FROM   employees 
-		WHERE  gender = 'M' 
-       		   AND birth_date = '1965-02-01' 
-       		   AND `hire_date` > '1990-01-01' 
-		ORDER  BY first_name; 
+		       last_name
+		FROM   employees
+		WHERE  gender = 'M'
+       		   AND birth_date = '1965-02-01'
+       		   AND `hire_date` > '1990-01-01'
+		ORDER  BY first_name;
 +------------+-----------+
 | first_name | last_name |
 +------------+-----------+
@@ -116,7 +116,7 @@ mysql> SELECT first_name,
 Now that we are running a working mysql docker image container, we proceed to create the container which is going to become the test environment for the web application to connect against our current mysql docker instance.
 
 ### Building web application instance.
-Docker give us the chance to deploy a new container from a existing local or remote repository using a DockerFile (Uploaded into the present repository). 
+Docker give us the chance to deploy a new container from a existing local or remote repository using a DockerFile (Uploaded into the present repository).
 
 Note that the we also use default, start.sh and supervisord.conf files located in the same directory. Just create a new directory and put all that files inside of it. Enter inside the directory and finally proceed with the build:
 ```html
@@ -141,7 +141,6 @@ It just rests to test our application from a web browser at the local host and c
 Link:
 https://github.com/jesbar02/simple-web-app/blob/master/employees%20db%20search%20result.png
 
-Note: 
-The required files are in the present repository.
-
-
+Notes:
+- The required files are in the present repository.
+- This webapp will be deployed in a different approach using docker compose instead.
